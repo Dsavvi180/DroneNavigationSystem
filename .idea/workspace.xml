@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73658b32-28e0-4dd2-af60-e3c62a17ffb1" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/IlpTutorial1" />
+  </component>
+  <component name="HttpClientOnboardingState"><![CDATA[{
+  "isOnboardingCommentShown": true
+}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="346SZ5IaIQOZXoIWx5lHIkvoSI4" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "JUnit.CalculateDistanceTest.executor": "Run",
+    "JUnit.IsCloseToTest.executor": "Run",
+    "JUnit.IsInRegionTest.executor": "Run",
+    "JUnit.NextPositionTest.executor": "Run",
+    "JUnit.ServiceControllerTest.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/damensavvasavvi/Desktop/ilp_submission_1",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ed.acp.cw2.Application" />
+      <module name="ilp_submission_1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ed.acp.cw2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculateDistanceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ilp_submission_1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ed.acp.cw2.service.calculateTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest" />
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest.CalculateDistanceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IsCloseToTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ilp_submission_1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ed.acp.cw2.service.calculateTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest" />
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest.IsCloseToTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IsInRegionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ilp_submission_1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ed.acp.cw2.service.calculateTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest" />
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest.IsInRegionTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NextPositionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ilp_submission_1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="uk.ac.ed.acp.cw2.service.calculateTest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest" />
+      <option name="MAIN_CLASS_NAME" value="uk.ac.ed.acp.cw2.service.calculateTest.NextPositionTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.NextPositionTest" />
+        <item itemvalue="JUnit.IsInRegionTest" />
+        <item itemvalue="JUnit.IsCloseToTest" />
+        <item itemvalue="JUnit.CalculateDistanceTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73658b32-28e0-4dd2-af60-e3c62a17ffb1" name="Changes" comment="" />
+      <created>1760532581165</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1760532581165</updated>
+    </task>
+    <servers />
+  </component>
+</project>
