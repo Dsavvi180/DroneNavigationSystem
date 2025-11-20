@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import uk.ac.ed.acp.cw2.dtos.PositionDto;
 import uk.ac.ed.acp.cw2.dtos.RegionCheckDto;
 import uk.ac.ed.acp.cw2.dtos.RegionDto;
-import uk.ac.ed.acp.cw2.service.Calculate;
+import uk.ac.ed.acp.cw2.service.CalculatePositioning;
 
 public class IsInRegionTest {
 
@@ -48,22 +48,22 @@ public class IsInRegionTest {
 
         // Test 1: Inside point should return true
         PositionDto inside = new PositionDto(-3.189000, 55.944500);
-        boolean insideResult = Calculate.isInRegion(new RegionCheckDto(inside, region));
+        boolean insideResult = CalculatePositioning.isInRegion(new RegionCheckDto(inside, region));
         assertTrue(insideResult);
 
         // Test 2: Outside point should return false
         PositionDto outside = new PositionDto(-3.180000, 55.944000);
-        boolean outsideResult = Calculate.isInRegion(new RegionCheckDto(outside, region));
+        boolean outsideResult = CalculatePositioning.isInRegion(new RegionCheckDto(outside, region));
         assertFalse(outsideResult);
 
         // Test 3: Point exactly on an edge should return True (check includes boundary)
         PositionDto onEdge = new PositionDto(-3.192473, 55.944000);
-        boolean edgeResult = Calculate.isInRegion(new RegionCheckDto(onEdge, region));
+        boolean edgeResult = CalculatePositioning.isInRegion(new RegionCheckDto(onEdge, region));
         assertTrue(edgeResult);
 
         // Test 4: Point exactly on a vertex should return True
         PositionDto onVertex = new PositionDto(-3.192473, 55.946233);
-        boolean vertexResult = Calculate.isInRegion(new RegionCheckDto(onVertex, region));
+        boolean vertexResult = CalculatePositioning.isInRegion(new RegionCheckDto(onVertex, region));
         assertTrue(vertexResult);
     }
 
@@ -75,7 +75,7 @@ public class IsInRegionTest {
         PositionDto point = new PositionDto(-3.189000, 55.944500);
 
         assertThrows(ResponseStatusException.class,
-                () -> Calculate.isInRegion(new RegionCheckDto(point, region)));
+                () -> CalculatePositioning.isInRegion(new RegionCheckDto(point, region)));
     }
 
     @Test
@@ -94,11 +94,11 @@ public class IsInRegionTest {
 
         // Inside
         PositionDto inside = new PositionDto(-3.1905, 55.9460);
-        assertTrue(Calculate.isInRegion(new RegionCheckDto(inside, region)));
+        assertTrue(CalculatePositioning.isInRegion(new RegionCheckDto(inside, region)));
 
         // Point inside indentation but outside actual area
         PositionDto notch = new PositionDto(-3.190000, 55.944800);
-        assertFalse(Calculate.isInRegion(new RegionCheckDto(notch, region)));
+        assertFalse(CalculatePositioning.isInRegion(new RegionCheckDto(notch, region)));
     }
 
 
@@ -114,23 +114,23 @@ public class IsInRegionTest {
         RegionDto regionCW = region("rectCW", cw);
 
         PositionDto inside = new PositionDto(-3.189500, 55.944800);
-        assertTrue(Calculate.isInRegion(new RegionCheckDto(inside, regionCCW)));
-        assertTrue(Calculate.isInRegion(new RegionCheckDto(inside, regionCW)));
+        assertTrue(CalculatePositioning.isInRegion(new RegionCheckDto(inside, regionCCW)));
+        assertTrue(CalculatePositioning.isInRegion(new RegionCheckDto(inside, regionCW)));
     }
 
     @Test
     void testIsInRegion_nullHandling() {
 
         // Test 8: Null arguments should throw NullPointerException
-        assertThrows(NullPointerException.class, () -> Calculate.isInRegion(null));
+        assertThrows(NullPointerException.class, () -> CalculatePositioning.isInRegion(null));
 
         PositionDto p = new PositionDto(-3.189000, 55.944500);
         RegionDto region = region("central", centralRectClosed());
 
-        assertThrows(NullPointerException.class, () -> Calculate.isInRegion(new RegionCheckDto(p, null)));
-        assertThrows(NullPointerException.class, () -> Calculate.isInRegion(new RegionCheckDto(null, region)));
+        assertThrows(NullPointerException.class, () -> CalculatePositioning.isInRegion(new RegionCheckDto(p, null)));
+        assertThrows(NullPointerException.class, () -> CalculatePositioning.isInRegion(new RegionCheckDto(null, region)));
 
         RegionDto badRegion = new RegionDto("bad", null);
-        assertThrows(NullPointerException.class, () -> Calculate.isInRegion(new RegionCheckDto(p, badRegion)));
+        assertThrows(NullPointerException.class, () -> CalculatePositioning.isInRegion(new RegionCheckDto(p, badRegion)));
     }
 }

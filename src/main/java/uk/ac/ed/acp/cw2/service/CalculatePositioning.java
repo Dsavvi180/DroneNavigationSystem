@@ -14,7 +14,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 
-public class Calculate {
+public class CalculatePositioning {
     private static final double MOVE_DISTANCE = 0.00015;
     private static final double ERROR_TOLERANCE = 1e-12;
 

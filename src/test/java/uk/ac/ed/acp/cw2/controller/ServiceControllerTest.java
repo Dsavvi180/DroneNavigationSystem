@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.beans.factory.annotation.Autowired;
-import uk.ac.ed.acp.cw2.service.Calculate;
+import uk.ac.ed.acp.cw2.service.CalculatePositioning;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -51,14 +51,14 @@ public class ServiceControllerTest {
                    "position2":{"lng":-3.184319,"lat":55.942617}}
                 """;
         // static methods being mocked so we use mockStatic static method of Mockito class.
-        try (MockedStatic<Calculate> mockedDistanceTo = mockStatic(Calculate.class)) {
-            mockedDistanceTo.when(() -> Calculate.calculateDistance((any()))).thenReturn(0.123456);
+        try (MockedStatic<CalculatePositioning> mockedDistanceTo = mockStatic(CalculatePositioning.class)) {
+            mockedDistanceTo.when(() -> CalculatePositioning.calculateDistance((any()))).thenReturn(0.123456);
             mvc.perform(post("/api/v1/distanceTo")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(body))
                     .andExpect(status().isOk())
                     .andExpect(content().string("0.123456"));
-            mockedDistanceTo.verify(() -> Calculate.calculateDistance(any()));
+            mockedDistanceTo.verify(() -> CalculatePositioning.calculateDistance(any()));
         }
     }
 
@@ -84,14 +84,14 @@ public class ServiceControllerTest {
                 {"position1":{"lng":-3.192473,"lat":55.946233},
                  "position2":{"lng":-3.192323,"lat":55.946233}}
                 """;
-        try (MockedStatic<Calculate> mockedIsCloseTo = mockStatic(Calculate.class)) {
-            mockedIsCloseTo.when(()->Calculate.isCloseTo(any())).thenReturn(true);
+        try (MockedStatic<CalculatePositioning> mockedIsCloseTo = mockStatic(CalculatePositioning.class)) {
+            mockedIsCloseTo.when(()-> CalculatePositioning.isCloseTo(any())).thenReturn(true);
             mvc.perform(post("/api/v1/isCloseTo").
                     contentType(MediaType.APPLICATION_JSON)
                     .content(body))
                     .andExpect(status().isOk())
                     .andExpect(content().string("true"));
-            mockedIsCloseTo.verify(()->Calculate.isCloseTo(any()));
+            mockedIsCloseTo.verify(()-> CalculatePositioning.isCloseTo(any()));
         }
     }
 
@@ -101,10 +101,10 @@ public class ServiceControllerTest {
         String body = """
                  {"start":{"lng":-3.192473,"lat":55.946233},"angle":90}
                 """;
-        try (MockedStatic<Calculate> mockedNextPosition = mockStatic(Calculate.class)) {
+        try (MockedStatic<CalculatePositioning> mockedNextPosition = mockStatic(CalculatePositioning.class)) {
             uk.ac.ed.acp.cw2.dtos.PositionDto fake =
                     new uk.ac.ed.acp.cw2.dtos.PositionDto(-3.192473, 55.946383);
-            mockedNextPosition.when(()->Calculate.nextPosition(any())).thenReturn(fake);
+            mockedNextPosition.when(()-> CalculatePositioning.nextPosition(any())).thenReturn(fake);
             mvc.perform(post("/api/v1/nextPosition")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(body))
@@ -112,7 +112,7 @@ public class ServiceControllerTest {
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.lng").value(-3.192473))
                     .andExpect(jsonPath("$.lat").value(55.946383));
-            mockedNextPosition.verify(()->Calculate.nextPosition(any()));
+            mockedNextPosition.verify(()-> CalculatePositioning.nextPosition(any()));
         }
     }
 
@@ -130,14 +130,14 @@ public class ServiceControllerTest {
                                         {"lng":-3.192473,"lat":55.946233}
                                      ]}}
                 """;
-        try (MockedStatic<Calculate> mockedIsInRegion = mockStatic(Calculate.class)) {
-            mockedIsInRegion.when(()->Calculate.isInRegion(any())).thenReturn(true);
+        try (MockedStatic<CalculatePositioning> mockedIsInRegion = mockStatic(CalculatePositioning.class)) {
+            mockedIsInRegion.when(()-> CalculatePositioning.isInRegion(any())).thenReturn(true);
             mvc.perform(post("/api/v1/isInRegion")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(body))
                     .andExpect(status().isOk())
                     .andExpect(content().string("true"));
-            mockedIsInRegion.verify(()->Calculate.isInRegion(any()));
+            mockedIsInRegion.verify(()-> CalculatePositioning.isInRegion(any()));
         }
     }
 

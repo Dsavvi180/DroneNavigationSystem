@@ -1,11 +1,8 @@
 package uk.ac.ed.acp.cw2.controller;
 
-import uk.ac.ed.acp.cw2.service.Calculate;
 
-import uk.ac.ed.acp.cw2.dtos.RegionCheckDto;
-import uk.ac.ed.acp.cw2.dtos.DistanceDto;
-import uk.ac.ed.acp.cw2.dtos.NextPositionDto;
-import uk.ac.ed.acp.cw2.dtos.PositionDto;
+import uk.ac.ed.acp.cw2.dtos.*;
+import uk.ac.ed.acp.cw2.service.CalculatePositioning;
 
 import jakarta.validation.Valid;
 
@@ -14,8 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import uk.ac.ed.acp.cw2.service.DynamicQueries;
+import uk.ac.ed.acp.cw2.service.StaticQueries;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * Controller class that handles various HTTP endpoints for the application.
@@ -30,6 +30,15 @@ public class ServiceController {
     // Injects URL specified in application.yml
     @Value("${ilp.service.url}")
     public URL serviceUrl;
+
+    // Inject StaticQueries & DynamicQueries Service beans
+    private final StaticQueries staticQueries;
+    private final DynamicQueries dynamicQueries;
+    public ServiceController(StaticQueries staticQueries, DynamicQueries dynamicQueries) {
+        this.staticQueries = staticQueries;
+        this.dynamicQueries = dynamicQueries;
+    }
+
 
     @GetMapping("/")
     public String index() {
@@ -47,21 +56,42 @@ public class ServiceController {
     // @Valid enforces cascading validation rules on Dtos
     @PostMapping(path="/distanceTo", consumes="application/json")
     public double distanceTo(@Valid @RequestBody DistanceDto dto) {
-        return Calculate.calculateDistance(dto);
+        return CalculatePositioning.calculateDistance(dto);
     }
 
     @PostMapping(path="/isCloseTo", consumes="application/json")
     public boolean isCloseTo(@Valid @RequestBody DistanceDto dto) {
-        return Calculate.isCloseTo(dto);
+        return CalculatePositioning.isCloseTo(dto);
     }
 
     @PostMapping(path="/nextPosition", consumes="application/json")
     public PositionDto nextPosition(@Valid @RequestBody NextPositionDto dto){
-        return Calculate.nextPosition(dto);
+        return CalculatePositioning.nextPosition(dto);
     }
 
     @PostMapping(path="/isInRegion", consumes="application/json")
     public boolean isInRegion(@Valid @RequestBody RegionCheckDto dto){
-        return Calculate.isInRegion(dto);
+        return CalculatePositioning.isInRegion(dto);
+    }
+
+    /* Static Queries */
+    @GetMapping("/dronesWithCooling/{state}")
+    public List<DroneDto> dronesWithCooling(@PathVariable boolean state){
+        return staticQueries.getDronesWithCooling(state);
+    }
+
+    @GetMapping("/droneDetails/{id}")
+    public DroneDto droneDetails(@PathVariable String id){
+        return staticQueries.findDrone(id);
+    }
+    /* Dynamic Queries */
+    @GetMapping("/queryAsPath/{capabilityName}/{capabilityValue}")
+    public List<DroneDto> dronesWithCapability(@PathVariable String capabilityName, @PathVariable String capabilityValue){
+        return dynamicQueries.findDronesWithCapability(capabilityName,capabilityValue);
+    }
+
+    @PostMapping("/query")
+    public void dronesWithCapabilities(@RequestBody List<@Valid attributeQueryDto> attributeList){
+        List<DroneDto> matchedDrones = dynamicQueries.findDronesWithCapabilities(attributeList);
     }
 }
