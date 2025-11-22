@@ -1,8 +1,5 @@
 package uk.ac.ed.acp.cw2.dtos;
 
-
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,6 +16,7 @@ public class RequirementsDto {
     boolean heating;
     Double maxCost;
 
+    // A drone can be heating AND cooling but a medical record can only have heating OR cooling
     @AssertTrue
     public boolean isValidHeatingSettings(){
         return !(heating && cooling);

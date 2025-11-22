@@ -1,5 +1,6 @@
 package uk.ac.ed.acp.cw2.dtos;
 
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,12 +10,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedDispatchRecDto {
-    @NotNull
-    int id;
-    java.time.LocalDate date;
-    java.time.LocalTime time;
-    @Valid
-    @NotNull RequirementsDto requirements;
-    @NotNull @Valid PositionDto delivery;
+public class ServicePointDto {
+    @NotNull String name;
+    @NotNull int id;
+    @Valid LocationDto location;
 }

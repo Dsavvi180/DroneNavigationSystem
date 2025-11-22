@@ -1,6 +1,5 @@
 package uk.ac.ed.acp.cw2.controller;
 
-
 import uk.ac.ed.acp.cw2.dtos.*;
 import uk.ac.ed.acp.cw2.service.CalculatePositioning;
 
@@ -91,7 +90,13 @@ public class ServiceController {
     }
 
     @PostMapping("/query")
-    public void dronesWithCapabilities(@RequestBody List<@Valid attributeQueryDto> attributeList){
-        List<DroneDto> matchedDrones = dynamicQueries.findDronesWithCapabilities(attributeList);
+    public List<DroneDto> dronesWithCapabilities(@RequestBody List<@Valid attributeQueryDto> attributeList){
+        return dynamicQueries.findDronesWithCapabilities(attributeList);
+    }
+
+    /* Drone availability queries */
+    @PostMapping("/queryAvailableDrones")
+    public List<DroneDto> availableDrones(@RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos){
+        return
     }
 }

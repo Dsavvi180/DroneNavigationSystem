@@ -6,15 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedDispatchRecDto {
-    @NotNull
-    int id;
-    java.time.LocalDate date;
-    java.time.LocalTime time;
-    @Valid
-    @NotNull RequirementsDto requirements;
-    @NotNull @Valid PositionDto delivery;
+public class DroneAvailabilityDto {
+    @NotNull String id;
+    @NotNull @Valid List<AvailabilityDto> availability;
 }
+
+
