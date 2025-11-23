@@ -17,52 +17,59 @@ import java.util.List;
 @Component
 @Validated
 public class MedSupplyDronesClient {
-    private final WebClient medSupplyDronesClient;
-    private final Validator validator; // Inject validator bean to validate deserialisation of response to dtos
+  private final WebClient medSupplyDronesClient;
+  private final Validator
+      validator; // Inject validator bean to validate deserialisation of response to dtos
 
-    // Construct web client class and inject bean dependencies
-    public MedSupplyDronesClient(WebClient.Builder medSupplyDronesClientBuilder, String getEndpointIlp, Validator validator) {
-        this.validator = validator;
-        this.medSupplyDronesClient = medSupplyDronesClientBuilder.baseUrl(getEndpointIlp).build();
-    }
+  // Construct web client class and inject bean dependencies
+  public MedSupplyDronesClient(
+      WebClient.Builder medSupplyDronesClientBuilder, String getEndpointIlp, Validator validator) {
+    this.validator = validator;
+    this.medSupplyDronesClient = medSupplyDronesClientBuilder.baseUrl(getEndpointIlp).build();
+  }
 
-    // Generic function to validate a range of Dtos - generic type T
-    private <T> List<T> validateResponse(List<T> listDtos) {
-        // Validate response from MedSupplyDronesClient API
-        if (listDtos != null) {
-            for (T dto : listDtos) {
-                var errors = validator.validate(dto);
-                if (!errors.isEmpty()) {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-                }
-            }
-            return listDtos;
+  // Generic function to validate a range of Dtos - generic type T
+  private <T> List<T> validateResponse(List<T> listDtos) {
+    // Validate response from MedSupplyDronesClient API
+    if (listDtos != null) {
+      for (T dto : listDtos) {
+        var errors = validator.validate(dto);
+        if (!errors.isEmpty()) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+      }
+      return listDtos;
     }
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+  }
 
-    public List<DroneDto> getAllDrones(){
-        return validateResponse(medSupplyDronesClient.get()
-                .uri("/drones")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<DroneDto>>() {}).block());
-    }
-    public List<ServicePointDronesDto> getDronesForServicePoints(){
-        return validateResponse(medSupplyDronesClient.get()
-                .uri("/drones-for-service-points")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<ServicePointDronesDto>>() {}).block());
-     }
+  public List<DroneDto> getAllDrones() {
+    return validateResponse(
+        medSupplyDronesClient
+            .get()
+            .uri("/drones")
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<DroneDto>>() {})
+            .block());
+  }
 
-     public List<ServicePointDto> getServicePoints(){
-        return validateResponse(medSupplyDronesClient.get()
-                .uri("/service-points")
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<ServicePointDto>>() {}).block());
-     }
-    }
+  public List<ServicePointDronesDto> getDronesForServicePoints() {
+    return validateResponse(
+        medSupplyDronesClient
+            .get()
+            .uri("/drones-for-service-points")
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<ServicePointDronesDto>>() {})
+            .block());
+  }
 
-
-
-
-
+  public List<ServicePointDto> getServicePoints() {
+    return validateResponse(
+        medSupplyDronesClient
+            .get()
+            .uri("/service-points")
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<ServicePointDto>>() {})
+            .block());
+  }
+}

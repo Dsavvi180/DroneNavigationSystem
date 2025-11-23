@@ -7,11 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServicePointDronesDto {
-              @NotNull String servicePointId;
-              @NotNull @Valid List<DroneAvailabilityDto> drones;
+  @NotNull int servicePointId;
+  @NotNull @Valid List<DroneAvailabilityDto> drones;
 }
-

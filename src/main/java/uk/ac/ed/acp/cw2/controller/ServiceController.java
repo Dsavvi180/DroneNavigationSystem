@@ -17,86 +17,95 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Controller class that handles various HTTP endpoints for the application.
- * Provides functionality for serving the index page, retrieving a static UUID,
- * and managing key-value pairs through POST requests.
+ * Controller class that handles various HTTP endpoints for the application. Provides functionality
+ * for serving the index page, retrieving a static UUID, and managing key-value pairs through POST
+ * requests.
  */
 @RestController()
 @RequestMapping("/api/v1")
 public class ServiceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
-    // Injects URL specified in application.yml
-    @Value("${ilp.service.url}")
-    public URL serviceUrl;
+  private static final Logger logger = LoggerFactory.getLogger(ServiceController.class);
 
-    // Inject StaticQueries & DynamicQueries Service beans
-    private final StaticQueries staticQueries;
-    private final DynamicQueries dynamicQueries;
-    public ServiceController(StaticQueries staticQueries, DynamicQueries dynamicQueries) {
-        this.staticQueries = staticQueries;
-        this.dynamicQueries = dynamicQueries;
-    }
+  // Injects URL specified in application.yml
+  @Value("${ilp.service.url}")
+  public URL serviceUrl;
 
+  // Inject StaticQueries & DynamicQueries Service beans
+  private final StaticQueries staticQueries;
+  private final DynamicQueries dynamicQueries;
 
-    @GetMapping("/")
-    public String index() {
-        return "<html><body>" +
-                "<h1>Welcome from ILP</h1>" +
-                "<h4>ILP-REST-Service-URL:</h4> <a href=\"" + serviceUrl + "\" target=\"_blank\"> " + serviceUrl+ " </a>" +
-                "</body></html>";
-    }
+  public ServiceController(StaticQueries staticQueries, DynamicQueries dynamicQueries) {
+    this.staticQueries = staticQueries;
+    this.dynamicQueries = dynamicQueries;
+  }
 
-    @GetMapping("/uid")
-    public String uid() {
-        return "s2507699";
-    }
+  @GetMapping("/")
+  public String index() {
+    return "<html><body>"
+        + "<h1>Welcome from ILP</h1>"
+        + "<h4>ILP-REST-Service-URL:</h4> <a href=\""
+        + serviceUrl
+        + "\" target=\"_blank\"> "
+        + serviceUrl
+        + " </a>"
+        + "</body></html>";
+  }
 
-    // @Valid enforces cascading validation rules on Dtos
-    @PostMapping(path="/distanceTo", consumes="application/json")
-    public double distanceTo(@Valid @RequestBody DistanceDto dto) {
-        return CalculatePositioning.calculateDistance(dto);
-    }
+  @GetMapping("/uid")
+  public String uid() {
+    return "s2507699";
+  }
 
-    @PostMapping(path="/isCloseTo", consumes="application/json")
-    public boolean isCloseTo(@Valid @RequestBody DistanceDto dto) {
-        return CalculatePositioning.isCloseTo(dto);
-    }
+  // @Valid enforces cascading validation rules on Dtos
+  @PostMapping(path = "/distanceTo", consumes = "application/json")
+  public double distanceTo(@Valid @RequestBody DistanceDto dto) {
+    return CalculatePositioning.calculateDistance(dto);
+  }
 
-    @PostMapping(path="/nextPosition", consumes="application/json")
-    public PositionDto nextPosition(@Valid @RequestBody NextPositionDto dto){
-        return CalculatePositioning.nextPosition(dto);
-    }
+  @PostMapping(path = "/isCloseTo", consumes = "application/json")
+  public boolean isCloseTo(@Valid @RequestBody DistanceDto dto) {
+    return CalculatePositioning.isCloseTo(dto);
+  }
 
-    @PostMapping(path="/isInRegion", consumes="application/json")
-    public boolean isInRegion(@Valid @RequestBody RegionCheckDto dto){
-        return CalculatePositioning.isInRegion(dto);
-    }
+  @PostMapping(path = "/nextPosition", consumes = "application/json")
+  public PositionDto nextPosition(@Valid @RequestBody NextPositionDto dto) {
+    return CalculatePositioning.nextPosition(dto);
+  }
 
-    /* Static Queries */
-    @GetMapping("/dronesWithCooling/{state}")
-    public List<DroneDto> dronesWithCooling(@PathVariable boolean state){
-        return staticQueries.getDronesWithCooling(state);
-    }
+  @PostMapping(path = "/isInRegion", consumes = "application/json")
+  public boolean isInRegion(@Valid @RequestBody RegionCheckDto dto) {
+    return CalculatePositioning.isInRegion(dto);
+  }
 
-    @GetMapping("/droneDetails/{id}")
-    public DroneDto droneDetails(@PathVariable String id){
-        return staticQueries.findDrone(id);
-    }
-    /* Dynamic Queries */
-    @GetMapping("/queryAsPath/{capabilityName}/{capabilityValue}")
-    public List<DroneDto> dronesWithCapability(@PathVariable String capabilityName, @PathVariable String capabilityValue){
-        return dynamicQueries.findDronesWithCapability(capabilityName,capabilityValue);
-    }
+  /* Static Queries */
+  @GetMapping("/dronesWithCooling/{state}")
+  public List<DroneDto> dronesWithCooling(@PathVariable boolean state) {
+    return staticQueries.getDronesWithCooling(state);
+  }
 
-    @PostMapping("/query")
-    public List<DroneDto> dronesWithCapabilities(@RequestBody List<@Valid attributeQueryDto> attributeList){
-        return dynamicQueries.findDronesWithCapabilities(attributeList);
-    }
+  @GetMapping("/droneDetails/{id}")
+  public DroneDto droneDetails(@PathVariable String id) {
+    return staticQueries.findDrone(id);
+  }
 
-    /* Drone availability queries */
-    @PostMapping("/queryAvailableDrones")
-    public List<DroneDto> availableDrones(@RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos){
-        return
-    }
+  /* Dynamic Queries */
+  @GetMapping("/queryAsPath/{capabilityName}/{capabilityValue}")
+  public List<DroneDto> dronesWithCapability(
+      @PathVariable String capabilityName, @PathVariable String capabilityValue) {
+    return dynamicQueries.findDronesWithCapability(capabilityName, capabilityValue);
+  }
+
+  @PostMapping("/query")
+  public List<String> dronesWithCapabilities(
+      @RequestBody List<@Valid attributeQueryDto> attributeList) {
+    return dynamicQueries.findDronesWithCapabilities(attributeList);
+  }
+
+  /* Drone availability queries */
+  @PostMapping("/queryAvailableDrones")
+  public List<String> availableDrones(
+      @RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos) {
+    return dynamicQueries.findAvailableDrones(medDispatchRecDtos);
+  }
 }

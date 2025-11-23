@@ -1,16 +1,18 @@
 package uk.ac.ed.acp.cw2.dtos;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServicePointDto {
+public class RestrictedRegionDto {
   @NotNull String name;
-  @NotNull int id;
-  @NotNull @Valid LocationDto location;
+  @NotNull Integer id;
+  @NotNull LimitsDto limits;
+  @NotNull List<LocationDto> vertices;
 }

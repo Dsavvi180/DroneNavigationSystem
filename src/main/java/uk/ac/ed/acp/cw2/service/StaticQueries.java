@@ -11,25 +11,22 @@ import java.util.Objects;
 
 @Service
 public class StaticQueries {
-    private final MedSupplyDronesClient medSupplyDronesClient;
+  private final MedSupplyDronesClient medSupplyDronesClient;
 
-    public StaticQueries(MedSupplyDronesClient medSupplyDronesClient) {
-        this.medSupplyDronesClient = medSupplyDronesClient;
-    }
+  public StaticQueries(MedSupplyDronesClient medSupplyDronesClient) {
+    this.medSupplyDronesClient = medSupplyDronesClient;
+  }
 
-    public List<DroneDto> getDronesWithCooling(boolean state) {
-        return medSupplyDronesClient.getAllDrones()
-                .stream()
-                .filter(drone -> drone.getCapability().getCooling() == state)
-                .toList();
-    }
+  public List<DroneDto> getDronesWithCooling(boolean state) {
+    return medSupplyDronesClient.getAllDrones().stream()
+        .filter(drone -> drone.getCapability().getCooling() == state)
+        .toList();
+  }
 
-    public DroneDto findDrone(String id) {
-        return medSupplyDronesClient.getAllDrones()
-                .stream()
-                .filter(droneDto -> Objects.equals(droneDto.getId(), id))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+  public DroneDto findDrone(String id) {
+    return medSupplyDronesClient.getAllDrones().stream()
+        .filter(droneDto -> Objects.equals(droneDto.getId(), id))
+        .findFirst()
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
 }
-
