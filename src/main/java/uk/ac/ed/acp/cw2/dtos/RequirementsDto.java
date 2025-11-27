@@ -10,15 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequirementsDto {
-    @NotNull
-    Double capacity;
-    boolean cooling;
-    boolean heating;
-    Double maxCost;
+  @NotNull Double capacity;
+  boolean cooling;
+  boolean heating;
+  Double maxCost;
 
-    // A drone can be heating AND cooling but a medical record can only have heating OR cooling
-    @AssertTrue
-    public boolean isValidHeatingSettings(){
-        return !(heating && cooling);
-    }
+  // A drone can be heating AND cooling but a medical record can only have heating OR cooling
+  @AssertTrue
+  public boolean isValidHeatingSettings() {
+    return !(heating && cooling);
+  }
 }

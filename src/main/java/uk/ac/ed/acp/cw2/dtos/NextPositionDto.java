@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NextPositionDto {
-    private @NotNull @Valid PositionDto start;
-    private @NotNull @Min(value=0) @Max(value=360) int angle;
+  private @NotNull @Valid PositionDto start;
+  private @NotNull @Min(value = 0) @Max(value = 360) double angle;
 }

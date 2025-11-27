@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import uk.ac.ed.acp.cw2.dtos.DroneDto;
+import uk.ac.ed.acp.cw2.dtos.RestrictedRegionDto;
 import uk.ac.ed.acp.cw2.dtos.ServicePointDronesDto;
 import uk.ac.ed.acp.cw2.dtos.ServicePointDto;
 
@@ -70,6 +71,16 @@ public class MedSupplyDronesClient {
             .uri("/service-points")
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<List<ServicePointDto>>() {})
+            .block());
+  }
+
+  public List<RestrictedRegionDto> getRestrictedRegions() {
+    return validateResponse(
+        medSupplyDronesClient
+            .get()
+            .uri("/restricted-areas")
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<List<RestrictedRegionDto>>() {})
             .block());
   }
 }

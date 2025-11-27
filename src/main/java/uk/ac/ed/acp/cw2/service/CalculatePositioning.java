@@ -3,12 +3,13 @@ package uk.ac.ed.acp.cw2.service;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import org.w3c.dom.Node;
 import uk.ac.ed.acp.cw2.dtos.*;
 
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 
-import java.util.List;
+import java.util.*;
 
 public class CalculatePositioning {
   public static final double MOVE_DISTANCE = 0.00015;
@@ -31,11 +32,20 @@ public class CalculatePositioning {
   // Uses trigonometry to calculate the next position from a given start point
   // after a move of distance 0.00015 with a specified angle.
   public static PositionDto nextPosition(NextPositionDto nextPositionDto) {
-    double angle = nextPositionDto.getAngle();
+    double angle = Math.toRadians(nextPositionDto.getAngle());
     double lat = nextPositionDto.getStart().getLat();
     double lng = nextPositionDto.getStart().getLng();
     double dy = Math.sin(angle) * MOVE_DISTANCE; // Change in latitude from move
     double dx = Math.cos(angle) * MOVE_DISTANCE; // Change in longitude from move
+    return new PositionDto(lng + dx, lat + dy);
+  }
+
+  public static PositionDto nextPositionMagnified(NextPositionDto nextPositionDto) {
+    double angle = Math.toRadians(nextPositionDto.getAngle());
+    double lat = nextPositionDto.getStart().getLat();
+    double lng = nextPositionDto.getStart().getLng();
+    double dy = Math.sin(angle) * 0.001; // Change in latitude from move
+    double dx = Math.cos(angle) * 0.001; // Change in longitude from move
     return new PositionDto(lng + dx, lat + dy);
   }
 

@@ -1,6 +1,8 @@
 package uk.ac.ed.acp.cw2.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import uk.ac.ed.acp.cw2.dtos.*;
+import uk.ac.ed.acp.cw2.dtos.deliveries.OverallRouteDto;
 import uk.ac.ed.acp.cw2.service.CalculatePositioning;
 
 import jakarta.validation.Valid;
@@ -106,6 +108,18 @@ public class ServiceController {
   @PostMapping("/queryAvailableDrones")
   public List<String> availableDrones(
       @RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos) {
-    return dynamicQueries.findAvailableDrones(medDispatchRecDtos);
+    return dynamicQueries.findAvailableDrones(medDispatchRecDtos, false);
+  }
+
+  @PostMapping("/calcDeliveryPath")
+  public OverallRouteDto calcDeliveryPath(
+      @RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos) {
+    return dynamicQueries.calcDeliveryPath(medDispatchRecDtos, false);
+  }
+
+  @PostMapping("/calcDeliveryPathAsGeoJson")
+  public JsonNode calcDeliveryPathAsGeoJson(
+      @RequestBody List<@Valid MedDispatchRecDto> medDispatchRecDtos) {
+    return dynamicQueries.calcDeliveryPathAsGeoJson(medDispatchRecDtos);
   }
 }
